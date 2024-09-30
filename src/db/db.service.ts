@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DbModuleOptions } from './db.module';
 import { access, readFile, writeFile } from 'fs/promises';
+import { Book } from 'src/book/entity/Book.entity';
 
 @Injectable()
-export class DbService {
+export class DbService<T> {
     @Inject('OPTIONS')
     private options: DbModuleOptions;
 
-    async read() {
+    async read(): Promise<T[]> {
         const filePath = this.options.path;
 
         try {

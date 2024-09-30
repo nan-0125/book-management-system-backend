@@ -8,7 +8,7 @@ import { LoginUserDto } from './dto/login-user-dto';
 export class UserService {
   
   @Inject(DbService)
-  dbService: DbService
+  dbService: DbService<User>
 
   async register(registerUserDto: RegisterUserDto) {
     const users: User[] = await this.dbService.read();
