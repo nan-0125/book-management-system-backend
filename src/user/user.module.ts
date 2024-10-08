@@ -6,8 +6,8 @@ import { DbModule } from 'src/db/db.module';
 @Module({
   imports: [
     DbModule.register({
-      path: 'users.json'
-    })
+      path: 'users.json',
+    }),
   ],
   controllers: [UserController],
   providers: [UserService],

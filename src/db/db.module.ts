@@ -2,7 +2,7 @@ import { DynamicModule, Module } from '@nestjs/common';
 import { DbService } from './db.service';
 
 export interface DbModuleOptions {
-  path: string
+  path: string;
 }
 
 @Module({})
@@ -13,11 +13,11 @@ export class DbModule {
       providers: [
         {
           provide: 'OPTIONS',
-          useValue: options
+          useValue: options,
         },
-        DbService
+        DbService,
       ],
-      exports: [DbService]
-    }
+      exports: [DbService],
+    };
   }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Inject, Injectable, Post, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { BadRequestException, Inject, Injectable } from '@nestjs/common';
 import { CreateBookDto } from './dto/create-book-dto';
 import { UpdateBookDto } from './dto/update-book-dto';
 import { DbService } from 'src/db/db.service';
@@ -6,7 +6,6 @@ import { Book } from './entity/Book.entity';
 
 @Injectable()
 export class BookService {
-
   @Inject()
   dbService: DbService<Book>;
 
@@ -74,19 +73,18 @@ export class BookService {
 
   /**
    * 通过ID查找
-   * @param id 
+   * @param id
    */
   async findById(id: string) {
     const books = await this.dbService.read();
-    const targetBook = books.find(book => book.id.toString() === id);
-    return targetBook ? targetBook : new BadRequestException("该图书不存在");
+    const targetBook = books.find((book) => book.id.toString() === id);
+    return targetBook ? targetBook : new BadRequestException('该图书不存在');
   }
 
   /**
    * 查询全部
    */
   async list() {
-    const books = await this.dbService.read();
-    return books;
+    return await this.dbService.read();
   }
 }
