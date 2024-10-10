@@ -84,7 +84,8 @@ export class BookService {
   /**
    * 查询全部
    */
-  async list() {
-    return await this.dbService.read();
+  async list(name: string) {
+    const books = await this.dbService.read();
+    return name ? books.filter((book) => book.name.includes(name)) : books;
   }
 }

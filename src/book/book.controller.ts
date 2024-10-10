@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -30,8 +31,8 @@ export class BookController {
         fileSize: 1024 * 1024 * 3,
       },
       fileFilter(_req, file, callback) {
-        const extnamea = path.extname(file.originalname);
-        if (['.png', '.jpg', '.gif'].includes(extnamea)) {
+        const extname = path.extname(file.originalname);
+        if (['.png', '.jpg', '.gif'].includes(extname)) {
           callback(null, true);
         } else {
           callback(new BadRequestException('只能上传图片'), false);
@@ -45,8 +46,8 @@ export class BookController {
   }
 
   @Get('list')
-  async list() {
-    return this.bookService.list();
+  async list(@Query('name') name: string) {
+    return this.bookService.list(name);
   }
 
   @Get(':id')
